@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.3.0...v1.3.1) (2025-11-06)
+
+### Bug Fixes
+
+* missing files in package.json `files` config ([680c1eb](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/680c1eb1c74140fc4ba60639d634f4bd88a7f869))
+
 ## [1.3.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.2.0...v1.3.0) (2025-11-06)
 
 ### Features
