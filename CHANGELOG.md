@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.3.1...v1.4.0) (2025-11-06)
+
+### Features
+
+* **card:** adjusted llama-3.2-1b-instruct-q4_0 name to make it friendlier and added more accurate download size GB ([77c93e1](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/77c93e1a6a18ea7a31da8f055cbf2140ddbaca8a))
+
 ## [1.3.1](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.3.0...v1.3.1) (2025-11-06)
 
 ### Bug Fixes
