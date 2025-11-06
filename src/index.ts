@@ -1,3 +1,5 @@
+import { VERSION } from "./version";
+
 export interface WhisperLLMCard {
 	name: string;
 	type: "gguf";
@@ -18,7 +20,7 @@ export interface WhisperLLMCardsJSON {
 }
 
 export const whisperLLMCardsJson: WhisperLLMCardsJSON = {
-	version: "0.0.0",
+	version: VERSION,
 
 	recommendedCard: "llama-3.2-1b-instruct-q4_0",
 
@@ -36,7 +38,7 @@ export const whisperLLMCardsJson: WhisperLLMCardsJSON = {
 };
 
 export async function getLatestConfig(
-	latestConfigUrl: string = "https://avatechnologies.org/whisper-llm-cards/refs/heads/main/cards.json",
+	latestConfigUrl: string = `https://avatechnologies.org/whisper-llm-cards/refs/tags/v${VERSION}/cards.json`,
 ): Promise<WhisperLLMCardsJSON> {
 	const response = await fetch(latestConfigUrl);
 

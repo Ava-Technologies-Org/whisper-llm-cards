@@ -1,12 +1,17 @@
-name: Sync `cards.json`
+name: Release
 
 on:
   push:
     branches:
-      - "**"
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
 
@@ -14,7 +19,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,29 +36,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run build
-        run: pnpm build
-
-      - name: Run Lint
+      - name: Run lint
         run: pnpm lint
 
-      - name: Run Tests
+      - name: Run build for tests
+        run: pnpm build
+
+      - name: Run tests
         run: pnpm test
 
-      - name: Check for changes in cards.json
-        id: check_changes
-        run: |
-          if git diff --quiet cards.json; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit and push if changed
-        if: steps.check_changes.outputs.changed == 'true'
+      - name: Configure git for semantic-release
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add cards.json
-          git commit -m "chore: [skip-ci] update cards.json from build"
-          git push
+
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

@@ -74,13 +74,28 @@ test("whisperLLMCardsJson card values are within reasonable ranges", (t) => {
 
 // Tests for getLatestConfig function
 test("getLatestConfig returns a promise", (t) => {
+	// Mock fetch to avoid actual network call
+	const originalFetch = globalThis.fetch;
+	globalThis.fetch = async () => {
+		return {
+			ok: true,
+			json: async () => ({ version: "1.0.0", recommendedCard: "test", cards: {} }),
+		} as Response;
+	};
+
 	const result = getLatestConfig();
 	t.true(result instanceof Promise);
+
+	// Restore original fetch
+	globalThis.fetch = originalFetch;
 });
 
 // Skip network tests by default - enable with: ava --match '*network*'
 test("getLatestConfig fetches and returns valid config (network)", async (t) => {
-	const config = await getLatestConfig();
+	// Use main branch URL for testing since tags won't exist until after release
+	const config = await getLatestConfig(
+		"https://avatechnologies.org/whisper-llm-cards/refs/heads/main/cards.json",
+	);
 
 	t.truthy(config);
 	t.is(typeof config, "object");
@@ -93,7 +108,10 @@ test("getLatestConfig fetches and returns valid config (network)", async (t) => 
 });
 
 test("getLatestConfig returns cards with valid structure (network)", async (t) => {
-	const config = await getLatestConfig();
+	// Use main branch URL for testing since tags won't exist until after release
+	const config = await getLatestConfig(
+		"https://avatechnologies.org/whisper-llm-cards/refs/heads/main/cards.json",
+	);
 
 	t.true(Object.keys(config.cards).length > 0);
 
@@ -113,7 +131,10 @@ test("getLatestConfig returns cards with valid structure (network)", async (t) =
 });
 
 test("getLatestConfig recommendedCard exists in returned cards (network)", async (t) => {
-	const config = await getLatestConfig();
+	// Use main branch URL for testing since tags won't exist until after release
+	const config = await getLatestConfig(
+		"https://avatechnologies.org/whisper-llm-cards/refs/heads/main/cards.json",
+	);
 
 	t.truthy(config.cards[config.recommendedCard]);
 });
