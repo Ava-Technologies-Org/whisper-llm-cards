@@ -76,7 +76,21 @@ test("whisperLLMCardsJson card values are within reasonable ranges", (t) => {
 test("getLatestConfig returns a promise", (t) => {
 	// Mock fetch to avoid actual network call
 	const originalFetch = globalThis.fetch;
-	globalThis.fetch = async () => {
+	globalThis.fetch = async (url: string | URL | Request) => {
+		const urlString = url.toString();
+
+		// Mock versions.json
+		if (urlString.includes("versions.json")) {
+			return {
+				ok: true,
+				json: async () => ({
+					latest: "1.0.0",
+					channels: { "1": "1.0.0", "1.0": "1.0.0" },
+				}),
+			} as Response;
+		}
+
+		// Mock cards.json
 		return {
 			ok: true,
 			json: async () => ({ version: "1.0.0", recommendedCard: "test", cards: {} }),
@@ -140,7 +154,8 @@ test("getLatestConfig recommendedCard exists in returned cards (network)", async
 });
 
 test("getLatestConfig handles network errors gracefully", async (t) => {
-	// Mock fetch to simulate network error
+	// Mock fetch to simulate network error for cards.json
+	// Pass explicit URL to bypass versions.json lookup
 	const originalFetch = globalThis.fetch;
 	globalThis.fetch = async () => {
 		return {
@@ -151,7 +166,7 @@ test("getLatestConfig handles network errors gracefully", async (t) => {
 	};
 
 	const error = await t.throwsAsync(async () => {
-		await getLatestConfig();
+		await getLatestConfig("https://example.com/cards.json");
 	});
 
 	t.truthy(error);
@@ -164,7 +179,24 @@ test("getLatestConfig handles network errors gracefully", async (t) => {
 test("getLatestConfig uses first model as recommendedCard if not specified", async (t) => {
 	// Mock fetch to return data without recommendedCard
 	const originalFetch = globalThis.fetch;
-	globalThis.fetch = async () => {
+	globalThis.fetch = async (url: string | URL | Request) => {
+		const urlString = url.toString();
+
+		// Mock versions.json
+		if (urlString.includes("versions.json")) {
+			return {
+				ok: true,
+				json: async () => ({
+					latest: "1.0.0",
+					channels: {
+						"1": "1.0.0",
+						"1.0": "1.0.0",
+					},
+				}),
+			} as Response;
+		}
+
+		// Mock cards.json without recommendedCard
 		return {
 			ok: true,
 			json: async () => ({
