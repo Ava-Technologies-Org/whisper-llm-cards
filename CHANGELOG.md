@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.6.0...v1.7.0) (2025-11-06)
+
+### Features
+
+* emulated updating sourceUrl for llama-3.2-1b-instruct-q4_0 to test distribution ([1ed14a9](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/1ed14a9ee9d6831b3f676f10d9e7ddc10949e7fe))
+
 ## [1.6.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.5.0...v1.6.0) (2025-11-06)
 
 ### Features
