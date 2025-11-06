@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.4.0...v1.5.0) (2025-11-06)
+
+### Features
+
+* prioritise getting latest minor version by checking latest entry on major channel, before checking minnor channel ([36189a8](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/36189a81c41c485a21e46c370c4631d81329ac58))
+
 ## [1.4.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.3.1...v1.4.0) (2025-11-06)
 
 ### Features
