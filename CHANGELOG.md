@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.5.0...v1.6.0) (2025-11-06)
+
+### Features
+
+* tiny card adjustment, purely to test distribution ([79c0264](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/79c02643f05e4fb1bee20af858b7b6db69907057))
+
 ## [1.5.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.4.0...v1.5.0) (2025-11-06)
 
 ### Features
