@@ -2,6 +2,9 @@
 
 Distribution package for recommended LLM configurations for the Whisper App.
 
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Ava-Technologies-Org/whisper-llm-cards?label=latest&sort=semver)
+
+
 ---
 
 ## Development
