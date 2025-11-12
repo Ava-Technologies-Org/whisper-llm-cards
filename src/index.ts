@@ -1,12 +1,21 @@
 import { VERSION } from "./version";
 
+export interface Message {
+	role: "system" | "user" | string;
+	content: string;
+}
+
 export interface WhisperLLMCard {
 	name: string;
-	type: "gguf";
-	sourceUrl: string;
-	sizeGB: number;
-	parametersB: number;
-	ramGB: number;
+	type: "gguf"; // We only support GGUF for now.
+	sourceUrl: string; // Download URL
+	sizeGB: number; // Download size, in GB
+	parametersB: number; // LLM parameters (billions)
+	ramGB: number; // LLM RAM requirement, in GB
+	systemMessage: {
+		template: string; // `You are a 100% private on-device AI chat called Whisper. Today's date is {date_time_string}`
+		defaultTemplateValues: Record<string, string>; // If App's lib doesn't support a new template variable, this is used as a fallback.
+	};
 }
 
 export interface LLMCardCollection {
@@ -17,6 +26,38 @@ export interface WhisperLLMCardsJSON {
 	version: string;
 	recommendedCard: string;
 	cards: LLMCardCollection;
+}
+
+type TemplateVariable = {
+	resolver: (card: WhisperLLMCard, messages: Message[]) => string;
+	defaultValue: string;
+};
+
+/**
+ * Registry of template variables with their runtime resolvers and default fallback values.
+ * Add new template variables here to extend functionality.
+ */
+export const templateVariables: Record<string, TemplateVariable> = {
+	date_time_string: {
+		resolver: () => new Date().toLocaleString(),
+		defaultValue: new Date().getFullYear().toString(),
+	},
+};
+
+export function processSystemMessage(
+	card: WhisperLLMCard,
+	messages: Message[],
+): string {
+	return card.systemMessage.template.replace(/{([^}]+)}/g, (match, key) => {
+		if (typeof templateVariables[key] !== "undefined") {
+			try {
+				return templateVariables[key].resolver(card, messages);
+			} catch {}
+		}
+
+		// Fallback hierarchy: card default -> registry default -> original string
+		return card.systemMessage.defaultTemplateValues[key] ?? match;
+	});
 }
 
 export const whisperLLMCardsJson: WhisperLLMCardsJSON = {
@@ -33,6 +74,13 @@ export const whisperLLMCardsJson: WhisperLLMCardsJSON = {
 			sizeGB: 0.72,
 			parametersB: 1,
 			ramGB: 1.5,
+			systemMessage: {
+				template:
+					"You are a 100% private on-device AI chat called Whisper. Conversations stay on the device. Help the user concisly. Be useful, creative, and accurate. Today's date is {date_time_string}.",
+				defaultTemplateValues: {
+					date_time_string: templateVariables.date_time_string.defaultValue,
+				},
+			},
 		},
 	},
 };
