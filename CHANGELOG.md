@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v2.0.0...v2.0.1) (2025-11-12)
+
+### Bug Fixes
+
+* README.md notes about commit convention ([5ad82e2](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/5ad82e2f97bb274157de11b6585a8eae8dfc36e7))
+
 ## [2.0.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.9.0...v2.0.0) (2025-11-12)
 
 ### ⚠ BREAKING CHANGES
