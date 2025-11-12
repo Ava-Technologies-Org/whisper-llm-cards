@@ -17,7 +17,10 @@
           { "type": "test", "release": false },
           { "type": "build", "release": false },
           { "type": "ci", "release": false }
-        ]
+        ],
+        "parserOpts": {
+          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+        }
       }
     ],
     [
@@ -38,6 +41,9 @@
             { "type": "build", "section": "Build System", "hidden": true },
             { "type": "ci", "section": "Continuous Integration", "hidden": true }
           ]
+        },
+        "parserOpts": {
+          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
         }
       }
     ],
