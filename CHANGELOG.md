@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.9.0...v2.0.0) (2025-11-12)
+
+### ⚠ BREAKING CHANGES
+
+* breaking changes should trigger a major release when `!"` present in commit prefix
+
+### Bug Fixes
+
+* breaking changes should trigger a major release when `!"` present in commit prefix ([3764af3](https://github.com/Ava-Technologies-Org/whisper-llm-cards/commit/3764af3467d616d520d63e22a3ac869a0c6efa5c))
+
 ## [1.9.0](https://github.com/Ava-Technologies-Org/whisper-llm-cards/compare/v1.8.0...v1.9.0) (2025-11-12)
 
 ### ⚠ BREAKING CHANGES
