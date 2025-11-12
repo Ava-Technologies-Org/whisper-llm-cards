@@ -42,13 +42,15 @@ This package uses **semantic-release** for automated versioning and releases.
 
 Use conventional commits to trigger releases:
 
-- `feat!:` - New feature (minor version bump: 1.0.0 → 1.1.0)
+- `feat:` - New feature (minor version bump: 1.0.0 → 1.1.0)
 - `fix:` - Bug fix (patch version bump: 1.0.0 → 1.0.1)
 - `perf:` - Performance improvement (patch)
 - `refactor:` - Code refactoring (patch)
 - `docs:` - Documentation only (no release)
 - `chore:` - Maintenance tasks (no release)
 - `BREAKING CHANGE:` - Breaking change (major version bump: 1.0.0 → 2.0.0)
+- `fix!:` - Breaking change when presence of `[prefix]!: ...` (major version bump: 1.0.0 → 2.0.0)
+- `feat!:` - Breaking change when presence of `[prefix]!: ...` (major version bump: 1.0.0 → 2.0.0)
 
 ### Workflows
 
